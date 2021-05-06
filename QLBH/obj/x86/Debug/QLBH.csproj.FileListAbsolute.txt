@@ -1,0 +1,8 @@
+D:\Visual Studio 2010\Projects\QLBH\QLBH\bin\Debug\QLBH.exe.config
+D:\Visual Studio 2010\Projects\QLBH\QLBH\bin\Debug\QLBH.exe
+D:\Visual Studio 2010\Projects\QLBH\QLBH\bin\Debug\QLBH.pdb
+D:\Visual Studio 2010\Projects\QLBH\QLBH\obj\x86\Debug\QLBH.GUI_DonHang.resources
+D:\Visual Studio 2010\Projects\QLBH\QLBH\obj\x86\Debug\QLBH.Properties.Resources.resources
+D:\Visual Studio 2010\Projects\QLBH\QLBH\obj\x86\Debug\QLBH.csproj.GenerateResource.Cache
+D:\Visual Studio 2010\Projects\QLBH\QLBH\obj\x86\Debug\QLBH.exe
+D:\Visual Studio 2010\Projects\QLBH\QLBH\obj\x86\Debug\QLBH.pdb
