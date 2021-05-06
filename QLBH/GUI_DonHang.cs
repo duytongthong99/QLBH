@@ -27,25 +27,72 @@ namespace QLBH
             gVDH.Columns[1].Width = (int)(0.2 * gVDH.Width);
             gVDH.Columns[2].Width = (int)(0.25 * gVDH.Width);
             gVDH.Columns[3].Width = (int)(0.25 * gVDH.Width);
+            txtMaDH.Enabled = false;
         }
 
         private void gVDH_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtMaDH.Text = gVDH.Rows[e.RowIndex].Cells["OrderID"].Value.ToString();
-            cbNhanVien.Text = gVDH.Rows[e.RowIndex].Cells["LastName"].Value.ToString();
-            cbKhachhang.Text = gVDH.Rows[e.RowIndex].Cells["CompanyName"].Value.ToString();
-
+            if(e.RowIndex>=0 && e.RowIndex<gVDH.Rows.Count)
+            {
+                txtMaDH.Text = gVDH.Rows[e.RowIndex].Cells["OrderID"].Value.ToString();
+                dtpNgayDH.Text = gVDH.Rows[e.RowIndex].Cells[1].Value.ToString();
+                cbNhanVien.Text = gVDH.Rows[e.RowIndex].Cells["LastName"].Value.ToString();
+                cbKhachhang.Text = gVDH.Rows[e.RowIndex].Cells["CompanyName"].Value.ToString();
+            }
             
-            
-
+           
         }
 
         private void btXoa_Click(object sender, EventArgs e)
         {
             
+            foreach(DataGridViewRow row in gVDH.SelectedRows)
+            {
+                var rowID = Convert.ToInt32(row.Cells[0].Value);
+                if(rowID > 0)
+                {
+                    bus.xoaDH(rowID);
+                    gVDH.Rows.RemoveAt(row.Index);
+                    bus.LayDSDH(gVDH);
+                }
+            }
+                
+               
+        }
+
+        private void btThem_Click(object sender, EventArgs e)
+        {
+            Order donHang = new Order();
+            donHang.CustomerID = cbKhachhang.SelectedValue.ToString();
+            donHang.EmployeeID = int.Parse(cbNhanVien.SelectedValue.ToString());
+            donHang.OrderDate = dtpNgayDH.Value;
+            
+            bus.themDH(donHang);
+
+            bus.LayDSDH(gVDH);
+        }
+
+        private void btSua_Click(object sender, EventArgs e)
+        {
+            txtMaDH.Enabled = false;
+            Order d = new Order();
+            d.OrderID = int.Parse(txtMaDH.Text);
+            d.OrderDate = dtpNgayDH.Value;
+            d.CustomerID = cbKhachhang.SelectedValue.ToString();
+            d.EmployeeID = int.Parse(cbNhanVien.SelectedValue.ToString());
+
+            bus.SuaDH(d);
+
+            bus.LayDSDH(gVDH);
         }
 
         
 
+        private void gVDH_DoubleClick(object sender, EventArgs e)
+        {
+            Form_OrderDetail d = new Form_OrderDetail();
+            d.MaDH = int.Parse(gVDH.CurrentRow.Cells[0].Value.ToString());
+            d.ShowDialog();
+        }
     }
 }

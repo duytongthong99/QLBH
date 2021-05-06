@@ -8,24 +8,62 @@ namespace QLBH
 {
     class BUS_DonHang
     {
-        DAO_DonHang db;
+        DAO_DonHang da;
         public BUS_DonHang() {
-            db = new DAO_DonHang();
+            da = new DAO_DonHang();
         }
         public void LayDSDH(DataGridView dg)
         {
-            dg.DataSource = db.LayDSDH();
+            dg.DataSource = da.LayDSDH();
         }
         public void LayDSKH(ComboBox cb) {
-            cb.DataSource = db.layDSKH();
+            cb.DataSource = da.layDSKH();
             cb.DisplayMember = "CompanyName";
             cb.ValueMember="CustomerID";
         }
         public void LayDSNV(ComboBox cbnv) {
-            cbnv.DataSource = db.layDSNV();
+            cbnv.DataSource = da.layDSNV();
             cbnv.DisplayMember = "LastName";
             cbnv.ValueMember = "EmployeeID";
         }
+        public void themDH(Order donHang)
+        {
+            da.themDH(donHang);
+        }
+        public void SuaDH(Order donHang)
+        {
+            if(!da.SuaDH(donHang))
+            {
+                MessageBox.Show("Lỗi không tìm thấy sản phẩm");
+            }
+            
+        }
+        public void xoaDH(int rowID)
+        {
+            da.xoaDH(rowID);
+        }
 
+        public void LayDSCTDH(DataGridView dg, int MaDH)
+        {
+            dg.DataSource = da.LayDSCTDH(MaDH);
+        }
+
+        public void ThemSPCTDH(Order_Detail donhang)
+        {
+            da.ThemSPCTDH(donhang);
+        }
+
+        public void SuaCTDH(Order_Detail ctdh)
+        {
+            if(!da.SuaCTDH(ctdh))
+            {
+                MessageBox.Show("Không tìm thấy sản phẩm");
+            }
+        }
+
+        public void XoaCTDH(Order_Detail ctdh)
+        {
+            da.XoaDH(ctdh);
+        }
     }
 }
