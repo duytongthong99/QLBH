@@ -38,9 +38,9 @@ namespace QLBH
             }
             
         }
-        public void xoaDH(int rowID)
+        public void xoaDH(int maDH)
         {
-            da.xoaDH(rowID);
+            da.xoaDH(maDH);
         }
 
         public void LayDSCTDH(DataGridView dg, int MaDH)
@@ -63,7 +63,7 @@ namespace QLBH
 
         public void XoaCTDH(Order_Detail ctdh)
         {
-            da.XoaDH(ctdh);
+            da.XoaCTDH(ctdh);
         }
     }
 }

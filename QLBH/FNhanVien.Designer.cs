@@ -34,7 +34,8 @@
             this.dienThoaiLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtHoten = new System.Windows.Forms.TextBox();
+            this.cbMavung = new System.Windows.Forms.ComboBox();
+            this.txtHoTen = new System.Windows.Forms.TextBox();
             this.dtpNgaySinh = new System.Windows.Forms.DateTimePicker();
             this.txtDiaChi = new System.Windows.Forms.TextBox();
             this.txtDienThoai = new System.Windows.Forms.TextBox();
@@ -116,8 +117,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbMavung);
+            this.groupBox1.Controls.Add(this.txtHoTen);
             this.groupBox1.Controls.Add(this.hoTenNhanVienLabel);
-            this.groupBox1.Controls.Add(this.txtHoten);
             this.groupBox1.Controls.Add(this.ngaySinhLabel);
             this.groupBox1.Controls.Add(this.dtpNgaySinh);
             this.groupBox1.Controls.Add(this.diaChiLabel);
@@ -133,13 +135,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin chi tiết";
             // 
-            // txtHoten
+            // cbMavung
             // 
-            this.txtHoten.Location = new System.Drawing.Point(165, 55);
-            this.txtHoten.Margin = new System.Windows.Forms.Padding(4);
-            this.txtHoten.Name = "txtHoten";
-            this.txtHoten.Size = new System.Drawing.Size(265, 22);
-            this.txtHoten.TabIndex = 3;
+            this.cbMavung.FormattingEnabled = true;
+            this.cbMavung.Items.AddRange(new object[] {
+            "+84 Việt Nam",
+            "+1 United States"});
+            this.cbMavung.Location = new System.Drawing.Point(614, 55);
+            this.cbMavung.Name = "cbMavung";
+            this.cbMavung.Size = new System.Drawing.Size(112, 24);
+            this.cbMavung.TabIndex = 11;
+            // 
+            // txtHoTen
+            // 
+            this.txtHoTen.Location = new System.Drawing.Point(165, 59);
+            this.txtHoTen.Name = "txtHoTen";
+            this.txtHoTen.Size = new System.Drawing.Size(265, 22);
+            this.txtHoTen.TabIndex = 10;
             // 
             // dtpNgaySinh
             // 
@@ -159,11 +171,12 @@
             // 
             // txtDienThoai
             // 
-            this.txtDienThoai.Location = new System.Drawing.Point(613, 55);
+            this.txtDienThoai.Location = new System.Drawing.Point(733, 56);
             this.txtDienThoai.Margin = new System.Windows.Forms.Padding(4);
             this.txtDienThoai.Name = "txtDienThoai";
-            this.txtDienThoai.Size = new System.Drawing.Size(265, 22);
+            this.txtDienThoai.Size = new System.Drawing.Size(145, 22);
             this.txtDienThoai.TabIndex = 9;
+            this.txtDienThoai.TextChanged += new System.EventHandler(this.txtDienThoai_TextChanged);
             // 
             // bindingNavigatorMoveFirstItem
             // 
@@ -267,6 +280,7 @@
             this.btThoat.TabIndex = 3;
             this.btThoat.Text = "Thoát";
             this.btThoat.UseVisualStyleBackColor = true;
+            this.btThoat.Click += new System.EventHandler(this.btThoat_Click);
             // 
             // btSua
             // 
@@ -334,6 +348,7 @@
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FNhanVien";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.FNhanVien_Load);
             this.groupBox1.ResumeLayout(false);
@@ -361,8 +376,6 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-
-        private System.Windows.Forms.TextBox txtHoten;
         private System.Windows.Forms.DateTimePicker dtpNgaySinh;
         private System.Windows.Forms.TextBox txtDiaChi;
         private System.Windows.Forms.TextBox txtDienThoai;
@@ -377,5 +390,7 @@
         private System.Windows.Forms.Label diaChiLabel;
         private System.Windows.Forms.Label dienThoaiLabel;
         private System.Windows.Forms.DataGridView dGNhanVien;
+        private System.Windows.Forms.TextBox txtHoTen;
+        private System.Windows.Forms.ComboBox cbMavung;
     }
 }

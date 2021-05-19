@@ -45,17 +45,11 @@ namespace QLBH
 
         private void btXoa_Click(object sender, EventArgs e)
         {
-            
-            foreach(DataGridViewRow row in gVDH.SelectedRows)
-            {
-                var rowID = Convert.ToInt32(row.Cells[0].Value);
-                if(rowID > 0)
-                {
-                    bus.xoaDH(rowID);
-                    gVDH.Rows.RemoveAt(row.Index);
-                    bus.LayDSDH(gVDH);
-                }
-            }
+
+            int maDH = int.Parse(txtMaDH.Text);
+
+            bus.xoaDH(maDH);
+            bus.LayDSDH(gVDH);
                 
                
         }
@@ -93,6 +87,23 @@ namespace QLBH
             Form_OrderDetail d = new Form_OrderDetail();
             d.MaDH = int.Parse(gVDH.CurrentRow.Cells[0].Value.ToString());
             d.ShowDialog();
+        }
+
+        private void quảnLýSảnPhẩmToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FSanPham f = new FSanPham();
+            f.ShowDialog();
+        }
+
+        private void quảnLýĐơnHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FNhanVien f = new FNhanVien();
+            f.ShowDialog();
+        }
+
+        private void btThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

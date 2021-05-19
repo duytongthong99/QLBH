@@ -73,11 +73,11 @@ namespace QLBH
             return tinhTrang;
         }
 
-        public void xoaDH(int rowID)
+        public void xoaDH(int maDH)
         {
 
-            Order d = new Order();
-            d = db.Orders.First(s => s.OrderID == rowID);
+            
+            var d = db.Orders.First(s => s.OrderID == maDH);
             db.Orders.DeleteOnSubmit(d);
             db.SubmitChanges();
         }
@@ -123,7 +123,7 @@ namespace QLBH
             return tinhtrang;
         }
 
-        public void XoaDH(Order_Detail ctdh)
+        public void XoaCTDH(Order_Detail ctdh)
         {
             var ds = db.Order_Details.First(s => s.OrderID == ctdh.OrderID);
             db.Order_Details.DeleteOnSubmit(ds);

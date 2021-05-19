@@ -11,70 +11,86 @@ namespace QLBH
    
     class DAO_SanPham
     {
-        SqlConnection conn;
+        NWDataContext db;
         public DAO_SanPham()
         {
-            string query = ConfigurationManager.ConnectionStrings["cnstr"].ConnectionString;
-            conn = new SqlConnection(query);    
-        }
-        public DataTable layDSSP()
-        {
-            
-            string query1 = "SELECT ProductID, ProductName, UnitPrice, UnitsInStock, CompanyName, CategoryName FROM dbo.Categories,dbo.Products,dbo.Suppliers WHERE dbo.Products.CategoryID = dbo.Categories.CategoryID AND dbo.Products.SupplierID = dbo.Suppliers.SupplierID";
-            SqlDataAdapter d = new SqlDataAdapter(query1, conn);
-            DataSet ds = new DataSet();
+            db = new NWDataContext();
 
-            d.Fill(ds);
-            
-            return ds.Tables[0];
         }
-        public DataTable layDSLSP()
+      
+        public dynamic layDSSP()
         {
-            
-            string querylsp = "Select CategoryID, CategoryName From Categories";
-            SqlDataAdapter da = new SqlDataAdapter(querylsp, conn);
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-            return ds.Tables[0];
-        }
-        public DataTable layDSNCC()
-        {
-            
-            string querylncc = "Select SupplierID, CompanyName From Suppliers";
-            SqlDataAdapter da = new SqlDataAdapter(querylncc, conn);
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-            return ds.Tables[0];
-        }
-        public void ThemSanPham(string tenSP, decimal Uprice, int UinStock, int CateID, int SuppID)
-        {
-            
-            string query1 = string.Format("Insert into Products(ProductName, UnitsinStock, UnitPrice, CategoryID, SupplierID) Values(N'{0}','{1}','{2}','{3}','{4}')", tenSP,UinStock, Uprice, CateID, SuppID);
-            SqlCommand cmd = new SqlCommand(query1, conn);
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
-        }
-        public void SuaSP(int ProductID,string tenSP, decimal Uprice, int UinStock, int CateID, int SuppID)
-        {
-            
-            string query1 = string.Format("Update Products SET ProductName = '{0}', UnitsInStock='{1}', UnitPrice = '{2}', CategoryID='{3}', SupplierID='{4}' WHERE ProductID = '{5}'", tenSP, UinStock, Uprice, CateID, SuppID, ProductID);
-            SqlCommand cmd = new SqlCommand(query1, conn);
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
-            
-        }
-        public void XoaSP(int ProductID)
-        {
-            
-            string querry1 = string.Format("DELETE FROM Products WHERE ProductID = '{0}'", ProductID);
-            SqlCommand cmd = new SqlCommand(querry1, conn);
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
+            dynamic list = db.Products.Select(s => new
+            {
+                s.ProductID,
+                s.ProductName,
+                s.Category.CategoryName,
+                s.Supplier.CompanyName,
+                s.UnitPrice,
+                s.UnitsInStock
+
+            });
+            return list;
         }
 
+        public dynamic layDSCate()
+        {
+            var ds = db.Categories.Select(s => new
+            {
+                s.CategoryID,
+                s.CategoryName
+            }).ToList();
+            return ds;
+        }
+
+        public dynamic layDSNCC()
+        {
+            var ds = db.Suppliers.Select(s => new
+            {
+                s.SupplierID,
+                s.CompanyName
+            }).ToList();
+            return ds;
+        }
+
+        public void themSP(Product p)
+        {
+            db.Products.InsertOnSubmit(p);
+            db.SubmitChanges();
+        }
+
+        public bool suaSP(Product p)
+        {
+            bool status = false;
+            Product sp = new Product();
+            try
+            {
+                sp = db.Products.FirstOrDefault(s => s.ProductID == p.ProductID);
+                status = true;
+                sp.ProductName = p.ProductName;
+                sp.CategoryID = p.CategoryID;
+                sp.SupplierID = p.SupplierID;
+                sp.UnitPrice = p.UnitPrice;
+                sp.UnitsInStock = p.UnitsInStock;
+
+                db.SubmitChanges();
+                    
+            }
+            catch (Exception)
+            {
+
+                status = false;
+            }
+            return status;
+        }
+
+        public void xoaSP(int masp)
+        {
+            var xoa = db.Products.FirstOrDefault(s => s.ProductID == masp);
+
+            db.Products.DeleteOnSubmit(xoa);
+            db.SubmitChanges();
+        }
     }
    
     

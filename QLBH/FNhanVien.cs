@@ -15,94 +15,94 @@ namespace QLBH
 {
     public partial class FNhanVien : Form
     {
+        BUS_NhanVien bus;
         public FNhanVien()
         {
             InitializeComponent();
+            bus = new BUS_NhanVien();
         }
-        SqlConnection conn;
-        string chuoiKetnoi;
-
-        
-
-        void Ketnoi()
-        {
-            chuoiKetnoi = ConfigurationManager.ConnectionStrings["cnstr"].ConnectionString;
-            conn = new SqlConnection(chuoiKetnoi);   
-
-        }
-
-        DataTable LayDSNV()
-        {
-            string query = "SELECT EmployeeID, LastName +' '+FirstName as Name, BirthDate, Address, HomePhone FROM Employees ";
-            SqlDataAdapter da = new SqlDataAdapter(query, conn);
-            DataSet db = new DataSet();
-            da.Fill(db);
-            return db.Tables[0];
-       }
 
         private void FNhanVien_Load(object sender, EventArgs e)
         {
-            Ketnoi();
-            dGNhanVien.DataSource = LayDSNV();
-        }
-        void ThemNV()
-        {
+            bus.layDSNV(dGNhanVien);     
            
-            string[] hoten = txtHoten.Text.Split(' ');
-            string query = string.Format("INSERT INTO Employees(LastName, FirstName, HomePhone,Address, BirthDate) Values(N'{0}','{1}','{2}','{3}','{4}')", hoten[0], hoten[1], txtDienThoai.Text, txtDiaChi.Text, dtpNgaySinh.Value.ToShortDateString());
-            SqlCommand cmd = new SqlCommand(query, conn);
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
-            dGNhanVien.Columns.Clear();
-            dGNhanVien.DataSource = LayDSNV();
-
-        }
-        void SuaNV(int id, string lastname, string homephone, string addr, DateTime birthday)
-        {
-
-            string excute = string.Format("Update Employees Set LastName = '{0}', HomePhone ='{1}', Address='{2}', BirthDate = '{3}' WHERE EmployeeID = '{4}'", lastname, homephone, addr, birthday, id);
-            SqlCommand cmd = new SqlCommand(excute, conn);
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            cmd.Connection.Close();
-            dGNhanVien.DataSource = LayDSNV();
-        }
-        void XoaNV(int id)
-        {
-            string query = string.Format("Delete From Employees where EmployeeID='{0}'", id);
-            SqlCommand cmd = new SqlCommand(query, conn);
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
-            dGNhanVien.DataSource = LayDSNV();
-                
-        }
-        private void btThem_Click(object sender, EventArgs e)
-        {
-            ThemNV();
+            dGNhanVien.Columns[0].Width = (int)(dGNhanVien.Width * 0.1);
+            dGNhanVien.Columns[1].Width = (int)(dGNhanVien.Width * 0.2);
+            dGNhanVien.Columns[2].Width = (int)(dGNhanVien.Width * 0.2);
+            dGNhanVien.Columns[3].Width = (int)(dGNhanVien.Width * 0.2);
+            dGNhanVien.Columns[4].Width = (int)(dGNhanVien.Width * 0.2);
+            
+           
         }
 
         private void dGNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtHoten.Text = dGNhanVien.Rows[e.RowIndex].Cells[1].Value.ToString();
-            dtpNgaySinh.Text = dGNhanVien.Rows[e.RowIndex].Cells[2].Value.ToString();
-            txtDiaChi.Text = dGNhanVien.Rows[e.RowIndex].Cells[3].Value.ToString();
-            txtDienThoai.Text=dGNhanVien.Rows[e.RowIndex].Cells[4].Value.ToString();
+            if (e.RowIndex >= 0 && e.RowIndex < dGNhanVien.Rows.Count)
+            {
+                txtHoTen.Text = dGNhanVien.Rows[e.RowIndex].Cells[0].Value.ToString();
+                txtHoTen.Text = dGNhanVien.Rows[e.RowIndex].Cells[1].Value.ToString();
+                dtpNgaySinh.Text = dGNhanVien.Rows[e.RowIndex].Cells[2].Value.ToString();
+                txtDiaChi.Text = dGNhanVien.Rows[e.RowIndex].Cells[3].Value.ToString();
+                string mavasdt = dGNhanVien.Rows[e.RowIndex].Cells[4].Value.ToString();
+                string[] ma_sdt = mavasdt.Split(' ');
+                cbMavung.Text = ma_sdt[0];
+                txtDienThoai.Text = ma_sdt[1];
+            }
+        }
+
+        private void btThem_Click(object sender, EventArgs e)
+        {
+            Employee em = new Employee();
+            string hoten = txtHoTen.Text;
+            string[] ho_ten = hoten.Split(' ');
+
+            em.FirstName = ho_ten[0];
+            em.LastName = ho_ten[1];
+            em.BirthDate = DateTime.Parse(dtpNgaySinh.Value.ToShortDateString());
+            em.Address = txtDiaChi.Text;
+            string maVung = cbMavung.Text;
+            string[] splitmaVung = maVung.Split(' ');
+            em.HomePhone = string.Format(splitmaVung[0] +" "+int.Parse(txtDienThoai.Text));
+
+            bus.themNV(em);
+            bus.layDSNV(dGNhanVien);
+
         }
 
         private void btSua_Click(object sender, EventArgs e)
         {
-            int id;
-            id = int.Parse(dGNhanVien.CurrentRow.Cells[0].Value.ToString());
-            SuaNV(id,txtHoten.Text, txtDienThoai.Text, txtDiaChi.Text, dtpNgaySinh.Value);
+            Employee em = new Employee();
+            em.EmployeeID = int.Parse(dGNhanVien.CurrentRow.Cells[0].Value.ToString());
+            em.LastName = txtHoTen.Text;
+            em.BirthDate = dtpNgaySinh.Value;
+            em.Address = txtDiaChi.Text;
+            em.HomePhone = txtDienThoai.Text;
+
+            bus.SuaNV(em);
+            bus.layDSNV(dGNhanVien);
         }
 
         private void btXoa_Click(object sender, EventArgs e)
         {
-            int id;
-            id = int.Parse(dGNhanVien.CurrentRow.Cells[0].Value.ToString());
-            XoaNV(id);
+            int maNV = int.Parse(dGNhanVien.CurrentRow.Cells[0].Value.ToString());
+
+            bus.xoaNV(maNV);
+            bus.layDSNV(dGNhanVien);
+        }
+
+        private void txtDienThoai_TextChanged(object sender, EventArgs e)
+        {
+            if (!(txtDienThoai.Text.Length < 11))
+            {
+                MessageBox.Show("So dien thoai khong duoc lon hon 10");
+                txtDienThoai.Text = " ";
+            }
+
+        }
+
+        private void btThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

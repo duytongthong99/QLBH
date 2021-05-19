@@ -49,8 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BUS-DonHang.cs" />
+    <Compile Include="BUS_NhanVien.cs" />
     <Compile Include="BUS_SanPham.cs" />
     <Compile Include="DAO_DonHang.cs" />
+    <Compile Include="DAO_NhanVien.cs" />
     <Compile Include="DAO_SanPham.cs" />
     <Compile Include="FNhanVien.cs">
       <SubType>Form</SubType>
@@ -83,7 +85,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <EmbeddedResource Include="FNhanVien.resx">
       <DependentUpon>FNhanVien.cs</DependentUpon>
     </EmbeddedResource>

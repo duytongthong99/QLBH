@@ -18,3 +18,15 @@ C:\Users\Duy\Downloads\QLBH-LTCSDL\QLBH\QLBH\obj\x86\Debug\QLBH.csproj.GenerateR
 C:\Users\Duy\Downloads\QLBH-LTCSDL\QLBH\QLBH\obj\x86\Debug\QLBH.Form_OrderDetail.resources
 C:\Users\Duy\Downloads\QLBH-LTCSDL\QLBH\QLBH\obj\x86\Debug\QLBH.FNhanVien.resources
 C:\Users\Duy\Downloads\QLBH-LTCSDL\QLBH\QLBH\obj\x86\Debug\QLBH.FSanPham.resources
+C:\Users\Duy\Desktop\QLBH\QLBH\bin\Debug\QLBH.exe.config
+C:\Users\Duy\Desktop\QLBH\QLBH\obj\x86\Debug\QLBH.exe
+C:\Users\Duy\Desktop\QLBH\QLBH\obj\x86\Debug\QLBH.pdb
+C:\Users\Duy\Desktop\QLBH\QLBH\bin\Debug\QLBH.exe
+C:\Users\Duy\Desktop\QLBH\QLBH\bin\Debug\QLBH.pdb
+C:\Users\Duy\Desktop\QLBH\QLBH\obj\x86\Debug\QLBH.csprojResolveAssemblyReference.cache
+C:\Users\Duy\Desktop\QLBH\QLBH\obj\x86\Debug\QLBH.FNhanVien.resources
+C:\Users\Duy\Desktop\QLBH\QLBH\obj\x86\Debug\QLBH.Form_OrderDetail.resources
+C:\Users\Duy\Desktop\QLBH\QLBH\obj\x86\Debug\QLBH.FSanPham.resources
+C:\Users\Duy\Desktop\QLBH\QLBH\obj\x86\Debug\QLBH.GUI_DonHang.resources
+C:\Users\Duy\Desktop\QLBH\QLBH\obj\x86\Debug\QLBH.Properties.Resources.resources
+C:\Users\Duy\Desktop\QLBH\QLBH\obj\x86\Debug\QLBH.csproj.GenerateResource.Cache

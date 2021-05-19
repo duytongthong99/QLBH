@@ -14,34 +14,42 @@ namespace QLBH
         {
             da = new DAO_SanPham();
         }
-        public void LayDSSP(DataGridView dg)
+        
+        public void layDSSP(DataGridView dg)
         {
             dg.DataSource = da.layDSSP();
         }
-        public void LayDSLSP(ComboBox cb)
+
+        public void layDScate(ComboBox cb)
         {
-            cb.DataSource = da.layDSLSP();
+            cb.DataSource = da.layDSCate();
             cb.DisplayMember = "CategoryName";
             cb.ValueMember = "CategoryID";
         }
-        public void LayDSNCC(ComboBox cb)
+
+        public void layDSNCC(ComboBox cb)
         {
             cb.DataSource = da.layDSNCC();
             cb.DisplayMember = "CompanyName";
             cb.ValueMember = "SupplierID";
         }
-        public void ThemSP(string tenSP, decimal Uprice, int UinStock, int CateID, int SuppID)
-        {
-            da.ThemSanPham(tenSP, Uprice, UinStock, CateID, SuppID);
-        }
-        public void SuaSP(int ProductID, string ten, decimal Uprice, int UinStock, int cateID, int suppid)
-        {
-            da.SuaSP(ProductID, ten, Uprice, UinStock, cateID, suppid);
-        }
-        public void xoaSP(int ProductID)
-        {
-            da.XoaSP(ProductID);
 
+        public void themSP(Product p)
+        {
+            da.themSP(p);
+        }
+
+        public void suaSP(Product p)
+        {
+            if(!da.suaSP(p))
+            {
+                MessageBox.Show("San pham không ton tai!");
+            }
+        }
+
+        public void xoaSP(int masp)
+        {
+            da.xoaSP(masp);
         }
     }
 }

@@ -43,8 +43,7 @@ namespace QLBH
 
         private void btThoat_Click(object sender, EventArgs e)
         {
-            Form_OrderDetail f = new Form_OrderDetail();
-            f.Close();
+            this.Close();
 
 
         }
