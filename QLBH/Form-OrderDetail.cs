@@ -18,8 +18,11 @@ namespace QLBH
             busDH = new BUS_DonHang();
         }
         public int MaDH;
-       
-       
+        public bool IsNumeric(string value)
+        {
+            return value.All(char.IsNumber);
+        }
+
         private void Form_OrderDetail_Load(object sender, EventArgs e)
         {
             
@@ -80,6 +83,24 @@ namespace QLBH
             ctdh.OrderID = int.Parse(gVCTDH.CurrentRow.Cells[0].Value.ToString());
             busDH.XoaCTDH(ctdh);
             busDH.LayDSCTDH(gVCTDH, int.Parse(txtMaDH.Text));
+        }
+
+        private void txtDonGia_TextChanged(object sender, EventArgs e)
+        {
+            if(IsNumeric(txtDonGia.Text)!=true)
+            {
+                MessageBox.Show("Vui lòng nhập số!");
+                txtDonGia.Text = " ";
+            }
+        }
+
+        private void txtSoLuong_TextChanged(object sender, EventArgs e)
+        {
+            if(IsNumeric(txtSoLuong.Text)!=true)
+            {
+                MessageBox.Show("Vui lòng nhập số!");
+                txtSoLuong.Text = " ";
+            }
         }
     }
 }

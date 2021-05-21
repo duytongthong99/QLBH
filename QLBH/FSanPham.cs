@@ -18,6 +18,10 @@ namespace QLBH
             InitializeComponent();
             bus = new BUS_SanPham();
         }
+        public bool IsNumeric(string value)
+        {
+            return value.All(char.IsNumber);
+        }
 
         private void FSanPham_Load(object sender, EventArgs e)
         {
@@ -89,6 +93,24 @@ namespace QLBH
         private void btThoat_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtSoLuong_TextChanged(object sender, EventArgs e)
+        {
+            if (IsNumeric(txtSoLuong.Text) != true)
+            {
+                MessageBox.Show("Vui lòng nhập số!");
+                txtSoLuong.Text = " ";
+            }
+        }
+
+        private void txtDonGia_TextChanged(object sender, EventArgs e)
+        {
+            if (IsNumeric(txtDonGia.Text) != true)
+            {
+                MessageBox.Show("Vui lòng nhập số!");
+                txtDonGia.Text = " ";
+            }
         }
     }
 }

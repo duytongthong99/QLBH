@@ -22,6 +22,8 @@ namespace QLBH
             bus = new BUS_NhanVien();
         }
 
+        
+
         private void FNhanVien_Load(object sender, EventArgs e)
         {
             bus.layDSNV(dGNhanVien);     
@@ -53,19 +55,35 @@ namespace QLBH
         private void btThem_Click(object sender, EventArgs e)
         {
             Employee em = new Employee();
-            string hoten = txtHoTen.Text;
-            string[] ho_ten = hoten.Split(' ');
+            
+            if(txtHoTen.Text.Contains(' '))
+            {
+                if(txtHoTen.Text!=null && txtDiaChi.Text!=null && txtDienThoai!=null)
+                {
+                    string hoten = txtHoTen.Text;
+                    string[] ho_ten = hoten.Split(' ');
+                    em.FirstName = ho_ten[0];
+                    em.LastName = ho_ten[1];
+                    em.BirthDate = DateTime.Parse(dtpNgaySinh.Value.ToShortDateString());
+                    em.Address = txtDiaChi.Text;
+                    string maVung = cbMavung.Text;
+                    string[] splitmaVung = maVung.Split(' ');
+                    em.HomePhone = string.Format(splitmaVung[0] + " " + int.Parse(txtDienThoai.Text));
 
-            em.FirstName = ho_ten[0];
-            em.LastName = ho_ten[1];
-            em.BirthDate = DateTime.Parse(dtpNgaySinh.Value.ToShortDateString());
-            em.Address = txtDiaChi.Text;
-            string maVung = cbMavung.Text;
-            string[] splitmaVung = maVung.Split(' ');
-            em.HomePhone = string.Format(splitmaVung[0] +" "+int.Parse(txtDienThoai.Text));
-
-            bus.themNV(em);
-            bus.layDSNV(dGNhanVien);
+                    bus.themNV(em);
+                    bus.layDSNV(dGNhanVien);
+                }
+                else
+                {
+                    MessageBox.Show("Không được bỏ trống!!!");
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ họ tên");
+            }
+            
 
         }
 
@@ -89,14 +107,27 @@ namespace QLBH
             bus.xoaNV(maNV);
             bus.layDSNV(dGNhanVien);
         }
+        public bool IsNumeric(string value)
+        {
+            return value.All(char.IsNumber);
+        }
 
         private void txtDienThoai_TextChanged(object sender, EventArgs e)
         {
-            if (!(txtDienThoai.Text.Length < 11))
+            if(IsNumeric(txtDienThoai.Text)==true)
             {
-                MessageBox.Show("So dien thoai khong duoc lon hon 10");
+                if (!(txtDienThoai.Text.Length < 11))
+                {
+                    MessageBox.Show("So dien thoai khong duoc lon hon 10");
+                    txtDienThoai.Text = " ";
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ban phai nhap so!!");
                 txtDienThoai.Text = " ";
             }
+            
 
         }
 
